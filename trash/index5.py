@@ -30,9 +30,9 @@ def burn():
             namav = namav.replace("/", "_")
 
 
-            # if(namav == "NMR_NLR" or namav == "NQR2012" or namav == "ELF" or namav == "GIGAFVZ" or namav == "GIGAFRR" or namav == "GIGAFVR" or namav == "GIGAFVM" or namav == "GIGAFTR"): #assign car name
+            # if(namav == "NMR_NLR" or namav == "NQR2012" or namav == "ELF" or namav == "GIGAFVR"):
             #      continue
-            # if(namav != "GIGAFVZ"):
+            # if(namav != "PICKUP(TBR54)"):
             #      continue
 
 
@@ -65,11 +65,11 @@ def burn():
             for l, hfoa38 in enumerate(empgn):
 
 
-                klna = int(l)
+                #klna = int(l)
 
                 ahfo73 = "page-%s"%(hfoa38[0])
 
-                    # if(klna < 7 ): #assign page
+                # if(klna < 10): #assign page
                 #     continue
 
                 pprint(hfoa38[1])
@@ -79,16 +79,8 @@ def burn():
                 sosoup = BeautifulSoup(content, 'html.parser')
 
                 table = sosoup.find_all('table')
-
                 main_table = table[0]
-
-                empgn = [] #PAGINATION
-                empgn.append([0,ahskd])
                 table_body = main_table.find('tbody')
-
-                if(table_body is None):
-                    continue
-
 
                 rows = table_body.find_all('tr')
                 component_name = rows[0]
@@ -100,18 +92,11 @@ def burn():
                     ssia = sia.get('href')
                     if ssia not in TAHAP2:
                         TAHAP2.append([cancm9[o].get_text(),sia.get('href')])  # collect url to
-
                 for w,y in enumerate(TAHAP2):
                     ioes02 = y[0].strip()
                     ioes02 = checkNameComponent(ioes02)
 
 
-                    carr = getCar(cnlaskuar)
-
-                    car_id = carr[0][0]
-                    insertCategory({'car_id':car_id,'name':ioes02,'no':ioes02},)
-                    ctaggg = getCategory(car_id,ioes02)
-                    ctagid = ctaggg[0][0]
                     auchals = namav + "/" + ahfo73 + "/" +ioes02
                     pprint(auchals)  # pprint sampe mana
 
@@ -129,18 +114,18 @@ def burn():
                         sy8gs = m.find_all('td')
                         ace9aijcv = {
                             'part_no':sy8gs[1].get_text(),
-                            'category_id':ctagid,
+                            #'category_id':ctagid,
                             'description':sy8gs[3].get_text(),
-                            'qty': (sy8gs[4].get_text()),
+                            'qty': sy8gs[4].get_text(),
                             'model':sy8gs[7].get_text()
                         }
-                        # newpath = basef+"/data/"+namav+"/"+ahfo73+"/"+ioes02
-                        # if not os.path.exists(newpath):
-                        #     os.makedirs(newpath)
+                        newpath = basef+"/pprint/"+namav+"/"+ahfo73+"/"+ioes02
+                        if not os.path.exists(newpath):
+                            os.makedirs(newpath)
                         nfile = open('%s/%i.log' %(newpath,c),  'w')
-                        c = insertComponent(ace9aijcv)
+                        #c = insertComponent(ace9aijcv)
                         #pprint(c)
-                        #pprint(ace9aijcv, nfile)
+                        pprint(ace9aijcv, nfile)
                     #exit()
             # except ValueError:
             #     pprint(ValueError)
